@@ -94,6 +94,9 @@ config.gpu_options.per_process_gpu_memory_fraction = 0.6
 
 epochs = 10
 
+best, no_change = 0
+limit = 4
+
 # run the session
 with tf.Session(config=config) as sess:
 
@@ -126,10 +129,21 @@ with tf.Session(config=config) as sess:
         acc3 = sess.run(accuracy3, feed_dict={X3: test_x, Y3: test_y ,keep_prob3: 1.0})
         acc4 = sess.run(accuracy4, feed_dict={logitse1: logits1, logitse2: logits2, Y4: batch_y})
 
+        last_acc = [acc1, acc2, acc3, acc3]
+
         print(f"Accuracy of network 1: {acc1}")
         print(f"Accuracy of network 2: {acc2}")
         print(f"Accuracy of network 3: {acc3}")
         print(f"Accuracy of ensemble network: {acc4}")
+
+        if best < max(last_acc):
+            best = max(last_acc)
+        else:
+            no_change += 1
+
+        if no_change >= limit:
+            print(f"Early Stopping at epoch {epoch}")
+            break
 
         print(f"trained epoch {epoch}")
         # Print accuracy and loss
