@@ -115,7 +115,7 @@ with tf.Session(config=config) as sess:
             sess.run(train_op1, feed_dict={X: batch_x, Y: batch_y, keep_prob: 0.5})
             sess.run(train_op2, feed_dict={X2: batch_x, Y2: batch_y, keep_prob2: 0.5})
             sess.run(train_op3, feed_dict={X3: batch_x, Y3: batch_y, keep_prob3: 0.5})
-            sess.run(train_op4, feed_dict={Y4: batch_y, keep_prob3: 0.5})
+            sess.run(train_op4, feed_dict={logitse1: logits1,logitse2: logits2,Y4: batch_y, keep_prob3: 0.5})
         # Test on the test split
 
         # loss1 = sess.run(loss_op1, feed_dict={X: test_x, Y: test_y, keep_prob: 1.0})

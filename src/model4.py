@@ -1,4 +1,5 @@
 import tensorflow as tf
+import numpy as np
 
 from helper import conv2d, max_pool_2x2, dropout_layer
 
@@ -16,8 +17,11 @@ class Model4():
         self.Y4 = Y4
 
         self.concatenated_layer = tf.concat([self.logitse1, self.logitse2], axis=1)
+        self.concatenated_layer = np.array([self.concatenated_layer, 0])
 
-        self.weight = tf.Variable(tf.random_normal([self.concatenated_layer.get_shape()[-1], 10]))
+        print(f"shape of concatened layer {self.concatenated_layer.shape}")
+
+        self.weight = tf.Variable(tf.random_normal([20, 20]))
         self.bias = tf.Variable(tf.random_normal([self.label_size]))
 
 
